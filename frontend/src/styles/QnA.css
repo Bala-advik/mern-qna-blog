@@ -1,0 +1,100 @@
+.qna-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.qna-blog-container {
+  margin-top: 2rem;
+}
+
+.select-section {
+  display: flex;
+  margin-left: 1rem;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.select-section .input-group {
+  flex-grow: 3;
+  flex-basis: 160px;
+}
+
+.select-section .search-actions {
+  flex-grow: 1;
+  flex-basis: 200px;
+}
+
+.search-actions {
+  display: flex;
+  margin-right: 1rem;
+  align-items: flex-end;
+  gap: 16px;
+}
+
+.card-container {
+  width: 75%;
+  min-height: 20px;
+  padding: 1rem;
+}
+
+.card-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 1rem;
+}
+
+.question-title {
+  display: flex;
+  justify-content: space-between;
+}
+
+h3 {
+  counter-increment: headings;
+}
+
+h3::before {
+  content: counter(headings);
+  text-align: center;
+  margin-right: 0.5rem;
+}
+
+#search-input {
+  height: 38px;
+  line-height: 0.75rem;
+}
+
+.edit-btn {
+  background: none;
+  border: 0;
+}
+
+.delete-btn {
+  background: none;
+  border: 0;
+}
+
+.edit-btn svg{
+  fill: #dee2e6;
+  width: 50px;
+  height: 20px;
+}
+
+.delete-btn svg{
+  fill: #dee2e6;
+  width: 50px;
+  height: 20px;
+}
+
+@media screen and (max-width: 700px) {
+  .card-container{
+    width: 100%;
+  }
+}
+
+pre {
+  background-color: rgba(92, 108, 124, 0.3);
+  padding: 15px 15px 15px 30px;
+}

@@ -1,0 +1,56 @@
+.input-group {
+  margin-top: 0.25rem;
+}
+
+.input-group label {
+  display: block;
+  color: rgba(156, 163, 175, 1);
+  margin-bottom: 4px;
+}
+
+.input-group input,
+textarea,
+select {
+  width: 100%;
+  border-radius: 0.375rem;
+  border: 1px solid rgba(55, 65, 81, 1);
+  outline: 0;
+  background-color: rgb(34 37 42 / 37%);
+  padding: 0.75rem 1rem;
+  color: rgba(243, 244, 246, 1);
+}
+
+.input-group .quill {
+  width: 100%;
+  margin-bottom: 4rem;
+}
+
+.quill > .ql-toolbar {
+  height: 50px;
+}
+
+.input-group input:focus,
+textarea:focus,
+.quill:focus {
+  border-color: rgba(167, 139, 250);
+}
+
+.input-group select > option {
+  background-color: rgb(34, 37, 42);
+}
+
+@media screen and (max-width: 700px) {
+
+  .input-group .quill {
+    margin-bottom: 0;
+  }
+
+  .quill > .ql-container, .ql-snow, .ql-toolbar {
+    height: 100px;
+  }
+
+  .quill > .ql-toolbar {
+    height: 120px;
+  }
+
+}
