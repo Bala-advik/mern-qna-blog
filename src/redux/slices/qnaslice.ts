@@ -71,8 +71,8 @@ const qnaSlice = createSlice({
     resetSearch(state) {
       state.filteredList = state.qnaList;
     },
-    resetAll(state) {
-      state = initialState;
+    resetAll(_state) {
+      _state = initialState;
     },
   },
   extraReducers: (builder) => {

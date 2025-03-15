@@ -44,8 +44,8 @@ const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    resetAll(state) {
-      state = initialState;
+    resetAll(_state) {
+      _state = initialState;
     },
   },
   extraReducers: (builder) => {
