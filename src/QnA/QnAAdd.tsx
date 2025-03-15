@@ -2,20 +2,19 @@ import { lazy, Suspense, useEffect, useState } from "react";
 import axios from "axios";
 import { TextAreaInput } from "../components/shared/TextInput";
 import InputContainer from "../components/shared/InputContainer";
-import "../styles/QnA.css";
+import "../styles/QnA/QnA.css";
 import { SelectInput } from "../components/shared/SelectInput";
 const ReactQuill = lazy(() => import("react-quill"));
 import "react-quill/dist/quill.snow.css";
 import { optionsList, quillFormats, quillModules } from "../constants/qnaconst";
 import { CRUDProps, QnAList } from "../interface/QnA.model";
 import { LoaderIcon } from "../components/svg/LoaderIcon";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { updateQnARedux } from "../redux/slices/qnaslice";
+import { useNavigate } from "react-router-dom";
+import { RootState } from "../redux/store";
 
-const QnAAdd = ({
-  isEdit,
-  selectedId,
-}: CRUDProps) => {
+const QnAAdd = ({ isEdit, selectedId }: CRUDProps) => {
   const dispatch = useDispatch<any>();
   const [qna, setQnA] = useState<QnAList[]>([]);
   const initFormValues = {
@@ -26,6 +25,14 @@ const QnAAdd = ({
   };
   const [formValues, setFormValues] = useState(initFormValues);
   const [quillAnswer, setQuillAnswer] = useState("");
+  const { isUserLoggedIn } = useSelector((state: RootState) => state.user);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isUserLoggedIn) {
+      navigate("/");
+    }
+  }, [isUserLoggedIn]);
 
   useEffect(() => {
     const fetchQnAById = async (selectedId: string) => {
@@ -72,7 +79,6 @@ const QnAAdd = ({
     <Suspense fallback={<LoaderIcon />}>
       <div className="qna-container">
         <InputContainer>
-
           <TextAreaInput
             id="question"
             name="question"
@@ -117,7 +123,7 @@ const QnAAdd = ({
             onChange={updateFormValues}
             required={true}
           />
-          
+
           <button
             type="submit"
             className="add-button"

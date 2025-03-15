@@ -1,4 +1,4 @@
-import "../../styles/TextInput.css";
+import "../../styles/Components/TextInput.css";
 
 interface OptionsArrayProp {
   value: string;
@@ -22,12 +22,18 @@ export const SelectInput = ({
   optionsArray,
   labelText,
   required,
-  value
+  value,
 }: SelectInputProps) => {
   return (
     <div className="input-group">
       <label>{labelText}</label>
-      <select id={id} name={name} onChange={onChange} required={required} value={value}>
+      <select
+        id={id}
+        name={name}
+        onChange={onChange}
+        required={required}
+        value={value}
+      >
         {optionsArray.map((optionArrayItem) => (
           <option key={optionArrayItem.value} value={optionArrayItem.value}>
             {optionArrayItem.title}

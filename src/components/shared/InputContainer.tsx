@@ -1,4 +1,4 @@
-import '../../styles/InputContainer.css';
+import "../../styles/Components/InputContainer.css";
 
 interface Props {
   children: React.ReactNode;

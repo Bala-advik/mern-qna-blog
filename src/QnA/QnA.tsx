@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import "../styles/QnA.css";
+import "../styles/QnA/QnA.css";
 import { Button, Form } from "react-bootstrap";
 import ChildModal from "../components/shared/ChildModal";
 import QnAAdd from "./QnAAdd";
@@ -13,7 +13,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import {
   fetchQnARedux,
-  resetAll,
   resetModalsClose,
   resetSearch,
   searchItems,
@@ -21,19 +20,29 @@ import {
   setEditModalOpen,
 } from "../redux/slices/qnaslice";
 import { TextAreaInput } from "../components/shared/TextInput";
+import { useNavigate } from "react-router-dom";
 
 const QnA: React.FC = () => {
   const dispatch = useDispatch<any>();
-  const { loading, filteredList, isEditModalOpen, isDeleteModalOpen, refreshCount } =
-    useSelector((state: RootState) => state.qna);
+  const {
+    loading,
+    filteredList,
+    isEditModalOpen,
+    isDeleteModalOpen,
+    refreshCount,
+  } = useSelector((state: RootState) => state.qna);
+
+  const { isUserLoggedIn } = useSelector((state: RootState) => state.user);
   const [selectedId, setSelectedId] = useState("");
   const [searchInputVal, setSearchInputVal] = useState("");
   const [selectedOption, setSelectedOption] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(fetchQnARedux(selectedOption));
-    return () => dispatch(resetAll());
-  }, [dispatch]);
+    if (!isUserLoggedIn) {
+      navigate("/");
+    }
+  }, [isUserLoggedIn]);
 
   const handleClose = () => {
     dispatch(resetModalsClose());
@@ -66,7 +75,6 @@ const QnA: React.FC = () => {
   return (
     <div className="qna-blog-container">
       <section className="select-section">
-
         <TextAreaInput
           id="search-input"
           name="searchInput"
@@ -83,7 +91,9 @@ const QnA: React.FC = () => {
             defaultValue={selectedOption}
             onChange={(e) => setSelectedOption(e.target.value)}
           >
-            <option value="" selected disabled hidden>Choose</option>
+            <option value="" selected disabled hidden>
+              Choose
+            </option>
             {optionsList.map((option) => (
               <option key={option.value} value={option.value}>
                 {option.title}
@@ -94,7 +104,6 @@ const QnA: React.FC = () => {
             Search
           </Button>
         </div>
-        
       </section>
 
       <QnABlogCards

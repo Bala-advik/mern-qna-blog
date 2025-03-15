@@ -8,6 +8,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import QnAAdd from "./QnA/QnAAdd.tsx";
 import { Provider } from "react-redux";
 import { store } from "./redux/store.ts";
+import Login from "./login-modules/Login.tsx";
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
     children: [
       {
         path: "",
+        element: <Login />,
+      },
+      {
+        path: "qna",
         element: <QnA />,
       },
       {

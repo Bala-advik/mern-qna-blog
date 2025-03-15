@@ -30,7 +30,8 @@ export const fetchQnARedux = createAsyncThunk(
   "items/fetchQnA",
   async (qnaCategory: string) => {
     const response = await axios.get<QnAList[]>(
-      `${import.meta.env.VITE_API_URL}/qna?category=${qnaCategory}`
+      `${import.meta.env.VITE_API_URL}/v1/qna?category=${qnaCategory}`,
+      { withCredentials: true }
     );
     return response.data;
   }
@@ -40,7 +41,7 @@ export const updateQnARedux = createAsyncThunk(
   "items/updateQnA",
   async ({ id, formValues }: { id: string; formValues: any }) => {
     const response = await axios.put(
-      `${import.meta.env.VITE_API_URL}/qna/${id}`,
+      `${import.meta.env.VITE_API_URL}/v1/qna/${id}`,
       formValues
     );
     return response.data;
@@ -72,7 +73,7 @@ const qnaSlice = createSlice({
     },
     resetAll(state) {
       state = initialState;
-    }
+    },
   },
   extraReducers: (builder) => {
     builder
