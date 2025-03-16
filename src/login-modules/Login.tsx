@@ -9,20 +9,27 @@ const Login = () => {
   const [userName, setUserName] = useState("");
   const [password, setpassword] = useState("");
   const navigate = useNavigate();
-  const { isUserLoggedIn } = useSelector((state: RootState) => state.user);
+  const { isUserLoggedIn, userDetails } = useSelector(
+    (state: RootState) => state.user
+  );
   const dispatch = useDispatch<any>();
+
+  const handleUserSessionCreate = async () => {
+    await sessionStorage.setItem("token", userDetails.data.token);
+    navigate("/qna");
+    setUserName("");
+    setpassword("");
+  };
 
   useEffect(() => {
     if (isUserLoggedIn) {
-      navigate("/qna");
+      handleUserSessionCreate();
     }
   }, [isUserLoggedIn]);
 
   const loginHanlder = async (e: any) => {
     e.preventDefault();
     dispatch(handleLogin({ userName, password }));
-    setUserName("");
-    setpassword("");
   };
   return (
     <div className="login-container">
@@ -34,7 +41,7 @@ const Login = () => {
       />
       <label>Password</label>
       <input
-        type="text"
+        type="password"
         value={password}
         onChange={(e) => setpassword(e.target.value)}
       />

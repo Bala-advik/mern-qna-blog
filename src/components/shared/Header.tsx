@@ -5,7 +5,9 @@ import { RootState } from "../../redux/store";
 import { handleLogOut } from "../../redux/slices/user-slice";
 
 function Header() {
-  const { isUserLoggedIn } = useSelector((state: RootState) => state.user);
+  const { isUserLoggedIn, userDetails } = useSelector(
+    (state: RootState) => state.user
+  );
   const dispatch = useDispatch<any>();
   const navigate = useNavigate();
   const handleSignOut = async () => {
@@ -16,15 +18,19 @@ function Header() {
     <div>
       <nav className="nav_bar">
         <div className="navbar_logo">
-          <a href="/">aDvik's Blog</a>
+          <a href="/">{`${
+            !isUserLoggedIn
+              ? "aDvik's Blog"
+              : `Hello, ${userDetails?.data?.user?.userName}`
+          } `}</a>
         </div>
         <ul className="navbar-menu-container">
           {isUserLoggedIn && (
             <li>
               <Link to="qna/add">Add QnA</Link>
-              <Link to="" onClick={handleSignOut}>
+              <button className="sign-out-btn" onClick={handleSignOut}>
                 Sign Out
-              </Link>
+              </button>
             </li>
           )}
         </ul>

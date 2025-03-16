@@ -24,3 +24,11 @@
 .navbar-menu-container {
   margin-bottom: 0;
 }
+
+.sign-out-btn {
+  margin-left: 3rem;
+  text-decoration: none;
+  border: none;
+  color: var(--bs-primary-text-emphasis);
+  background-color: transparent;
+}

@@ -21,6 +21,8 @@ import {
 } from "../redux/slices/qnaslice";
 import { TextAreaInput } from "../components/shared/TextInput";
 import { useNavigate } from "react-router-dom";
+import customAPIController from "../interface/custom-api-controller";
+import { handleLoginRefresh } from "../redux/slices/user-slice";
 
 const QnA: React.FC = () => {
   const dispatch = useDispatch<any>();
@@ -38,9 +40,25 @@ const QnA: React.FC = () => {
   const [selectedOption, setSelectedOption] = useState("");
   const navigate = useNavigate();
 
+  const checkAuth = async () => {
+    try {
+      const response = await customAPIController.post(
+        "/v1/auth/validate-token"
+      );
+      dispatch(handleLoginRefresh(response.data));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   useEffect(() => {
     if (!isUserLoggedIn) {
-      navigate("/");
+      const token = sessionStorage.getItem("token");
+      if (!token) {
+        navigate("/");
+      } else {
+        checkAuth();
+      }
     }
   }, [isUserLoggedIn]);
 
@@ -91,7 +109,7 @@ const QnA: React.FC = () => {
             defaultValue={selectedOption}
             onChange={(e) => setSelectedOption(e.target.value)}
           >
-            <option value="" selected disabled hidden>
+            <option value="" disabled hidden>
               Choose
             </option>
             {optionsList.map((option) => (

@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { QnAList } from "../../interface/QnA.model";
+import customAPIController from "../../interface/custom-api-controller";
 
 interface QnAState {
   qnaList: QnAList[];
@@ -29,9 +30,8 @@ const initialState: QnAState = {
 export const fetchQnARedux = createAsyncThunk(
   "items/fetchQnA",
   async (qnaCategory: string) => {
-    const response = await axios.get<QnAList[]>(
-      `${import.meta.env.VITE_API_URL}/v1/qna?category=${qnaCategory}`,
-      { withCredentials: true }
+    const response = await customAPIController.get<QnAList[]>(
+      `${import.meta.env.VITE_API_URL}/v1/qna?category=${qnaCategory}`
     );
     return response.data;
   }

@@ -76,21 +76,27 @@ h3::before {
   border: 0;
 }
 
-.edit-btn svg{
+.edit-btn svg {
   fill: #dee2e6;
   width: 50px;
   height: 20px;
 }
 
-.delete-btn svg{
+.delete-btn svg {
   fill: #dee2e6;
   width: 50px;
   height: 20px;
 }
 
 @media screen and (max-width: 700px) {
-  .card-container{
+  .card-container {
     width: 100%;
+  }
+  .edit-btn {
+    display: none;
+  }
+  .delete-btn {
+    display: none;
   }
 }
 

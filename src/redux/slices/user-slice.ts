@@ -12,7 +12,7 @@ interface UserState {
 const initialState: UserState = {
   loading: false,
   isUserLoggedIn: false,
-  userDetails: [],
+  userDetails: null,
   isUserAuthenticated: false,
   error: null,
 };
@@ -25,8 +25,7 @@ export const handleLogin = createAsyncThunk(
       {
         email: userName,
         password,
-      },
-      { withCredentials: true }
+      }
     );
     return response.data;
   }
@@ -37,6 +36,7 @@ export const handleLogOut = createAsyncThunk("users/handleLogOut", async () => {
     `${import.meta.env.VITE_API_URL}/v1/auth/sign-out`,
     { withCredentials: true }
   );
+  sessionStorage.removeItem("token");
   return response.data;
 });
 
@@ -44,6 +44,10 @@ const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
+    handleLoginRefresh(_state, action: PayloadAction<any>) {
+      _state.isUserLoggedIn = true;
+      _state.userDetails = action.payload;
+    },
     resetAll(_state) {
       _state = initialState;
     },
@@ -80,5 +84,5 @@ const userSlice = createSlice({
   },
 });
 
-export const { resetAll } = userSlice.actions;
+export const { resetAll, handleLoginRefresh } = userSlice.actions;
 export default userSlice.reducer;
