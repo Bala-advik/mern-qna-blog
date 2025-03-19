@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import "../styles/QnA/QnA.css";
 import { Button, Form } from "react-bootstrap";
 import ChildModal from "../components/shared/ChildModal";
@@ -67,8 +66,8 @@ const QnA: React.FC = () => {
   };
 
   const handleDelete = async () => {
-    await axios
-      .delete(`${import.meta.env.VITE_API_URL}/qna/${selectedId}`)
+    await customAPIController
+      .delete(`${import.meta.env.VITE_API_URL}/v1/qna/${selectedId}`)
       .then(() => fetchQnA(selectedOption))
       .catch((err) => console.log(err))
       .finally(() => handleClose());

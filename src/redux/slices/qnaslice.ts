@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
 import { QnAList } from "../../interface/QnA.model";
 import customAPIController from "../../interface/custom-api-controller";
 
@@ -40,7 +39,7 @@ export const fetchQnARedux = createAsyncThunk(
 export const updateQnARedux = createAsyncThunk(
   "items/updateQnA",
   async ({ id, formValues }: { id: string; formValues: any }) => {
-    const response = await axios.put(
+    const response = await customAPIController.put(
       `${import.meta.env.VITE_API_URL}/v1/qna/${id}`,
       formValues
     );

@@ -1,5 +1,4 @@
 import { lazy, Suspense, useEffect, useState } from "react";
-import axios from "axios";
 import { TextAreaInput } from "../components/shared/TextInput";
 import InputContainer from "../components/shared/InputContainer";
 import "../styles/QnA/QnA.css";
@@ -13,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateQnARedux } from "../redux/slices/qnaslice";
 import { useNavigate } from "react-router-dom";
 import { RootState } from "../redux/store";
+import customAPIController from "../interface/custom-api-controller";
 
 const QnAAdd = ({ isEdit, selectedId }: CRUDProps) => {
   const dispatch = useDispatch<any>();
@@ -36,9 +36,10 @@ const QnAAdd = ({ isEdit, selectedId }: CRUDProps) => {
 
   useEffect(() => {
     const fetchQnAById = async (selectedId: string) => {
-      const { answer, question, category, subcategory } = await axios
-        .get(`${import.meta.env.VITE_API_URL}/qna/${selectedId}`)
-        .then((response) => response.data[0]);
+      const { answer, question, category, subcategory } =
+        await customAPIController
+          .get(`${import.meta.env.VITE_API_URL}/v1/qna/${selectedId}`)
+          .then((response) => response.data[0]);
       setFormValues({ answer, question, category, subcategory });
       setQuillAnswer(answer);
     };
@@ -54,8 +55,8 @@ const QnAAdd = ({ isEdit, selectedId }: CRUDProps) => {
 
   const addQnA = async (e: any) => {
     e.preventDefault();
-    await axios
-      .post(`${import.meta.env.VITE_API_URL}/qna`, {
+    await customAPIController
+      .post(`${import.meta.env.VITE_API_URL}/v1/qna`, {
         ...formValues,
         answer: quillAnswer,
       })
