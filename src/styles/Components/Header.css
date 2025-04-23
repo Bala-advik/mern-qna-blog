@@ -18,6 +18,8 @@
 }
 
 .navbar-menu-container li {
+  display: flex;
+  gap: 0.5em;
   list-style: none;
 }
 
@@ -26,7 +28,6 @@
 }
 
 .sign-out-btn {
-  margin-left: 3rem;
   text-decoration: none;
   border: none;
   color: var(--bs-primary-text-emphasis);
