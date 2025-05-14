@@ -6,6 +6,7 @@ export const optionsList: Options[] = [
   { value: "js", title: "JS" },
   { value: "ts", title: "TS" },
   { value: "nodeJS", title: "Node JS" },
+  { value: "mongodb", title: "MongoDB" },
   { value: "jwt", title: "JWT" },
   { value: "html", title: "HTML" },
   { value: "redux", title: "Redux" },
